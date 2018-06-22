@@ -7,9 +7,9 @@ const encBase64 = require("crypto-js/enc-base64");
 const app = express();
 app.use(bodyParser.json());
 
-mongoose.connect("mongodb://localhost:27017/airbnb"); //après le localhost = nom de ta BDD
+mongoose.connect("mongodb://localhost:27017/airbnb");
 
-// Défition du Schéma - À faire qu'une seule fois
+// Défition du Schéma
 const RoomSchema = new mongoose.Schema({
   title: String,
   description: String,
@@ -41,7 +41,7 @@ const UserSchema = new mongoose.Schema({
   salt: String //sécurité supplémenaire ajouté au mdp
 });
 
-//Définition du Model - À faire qu'une seule fois
+//Définition du Model
 const Room = mongoose.model("Room", RoomSchema);
 const User = mongoose.model("User", UserSchema);
 
@@ -56,7 +56,7 @@ app.post("/api/room/publish", function(req, res) {
   });
 });
 
-//Obtenir les informations d'un appartement. findOne permet de renvoyer l'objet directement seul, sans un tableau autour
+//Obtenir les informations d'un appartement.
 app.get("/api/room/:id", function(req, res) {
   Room.findOne({ _id: req.params.id }).exec(function(err, obj) {
     if (!err) {
@@ -95,22 +95,6 @@ app.get("/api/rooms/tri", function(req, res) {
 app.listen(3000, function() {
   console.log("Server started");
 });
-
-//Pagination avec skip, et limit --> BONUS
-
-// app.get("/api/rooms/pagination", function(req, res) {
-//   Room.find({ skip: req.query.skip }, { limit: req.query.limit }).exec(function(
-//     err,
-//     obj
-//   ) {
-//     if (!err) {
-//       res.json({
-//         rooms: obj,
-//         count: obj.length
-//       });
-//     }
-//   });
-// });
 
 // Partie User
 
