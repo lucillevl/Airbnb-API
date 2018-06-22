@@ -175,6 +175,6 @@ app.post("/api/user/log_in", function(req, res) {
     }
   });
 });
-
+//
 // Pour interrompre la connexion avec la base de données :
 // mongoose.connection.close();
